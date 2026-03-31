@@ -127,8 +127,7 @@ export function hashMap() {
 		for (let bucket of buckets) {
 			let current = bucket;
 			while (current) {
-				let entry = [current.key, current.value];
-				entriesArray.push(entry);
+				entriesArray.push([current.key, current.value]);
 				current = current.nextNode;
 			}
 		}
