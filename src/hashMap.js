@@ -34,9 +34,20 @@ export function hashMap() {
 		current.nextNode = { key, value, nextNode: null };
 	};
 
+	const get = (key) => {
+		let index = hash(key);
+
+		if (buckets[index]) {
+			return buckets[index].value;
+		}
+
+		return null;
+	};
+
 	return {
 		hash,
 		set,
+		get,
 		debug: () => buckets,
 	};
 }
