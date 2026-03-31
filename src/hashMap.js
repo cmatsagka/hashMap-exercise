@@ -20,15 +20,18 @@ export function hashMap() {
 			return;
 		}
 
-		let previous = buckets[index];
-		let tmp = previous.nextNode;
+		let current = buckets[index];
 
-		while (tmp !== null) {
-			previous = tmp;
-			tmp = tmp.nextNode;
+		while (current !== null) {
+			if (current.key === key) {
+				current.value = value;
+				return;
+			}
+			if (current.nextNode === null) break;
+
+			current = current.nextNode;
 		}
-		previous.nextNode = { key, value, nextNode: null };
-		return;
+		current.nextNode = { key, value, nextNode: null };
 	};
 
 	return {

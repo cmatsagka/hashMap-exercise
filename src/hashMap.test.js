@@ -21,19 +21,42 @@ test('set: stores a value at the hashed index', () => {
 	expect(allBuckets[index].value).toBe('red');
 });
 
-test('set: handles collisions by chaining nodes (Separate Chaining)', () => {
+test('collision: chains different keys in the same bucket', () => {
 	const myMap = hashMap();
 
 	myMap.set('a', 'first');
 	myMap.set('q', 'second');
 
 	const index = myMap.hash('a');
+	const firstNode = myMap.debug()[index];
+	const secondNode = firstNode.nextNode;
+
+	expect(firstNode.key).toBe('a');
+	expect(secondNode.key).toBe('q');
+	expect(secondNode.value).toBe('second');
+});
+
+test('update: overwrites value if key already exists', () => {
+	const myMap = hashMap();
+	myMap.set('apple', 'red');
+	myMap.set('apple', 'green');
+
+	const index = myMap.hash('apple');
 	const bucket = myMap.debug()[index];
 
-	expect(bucket.key).toBe('a');
-	expect(bucket.value).toBe('first');
+	expect(bucket.value).toBe('green');
+	expect(bucket.nextNode).toBeNull();
+});
 
-	expect(bucket.nextNode).not.toBeNull();
-	expect(bucket.nextNode.key).toBe('q');
-	expect(bucket.nextNode.value).toBe('second');
+test('deep update: updates a key that is deep in a collision chain', () => {
+	const myMap = hashMap();
+	myMap.set('a', 'first');
+	myMap.set('q', 'second');
+	myMap.set('q', 'updated-second');
+
+	const index = myMap.hash('a');
+	const secondNode = myMap.debug()[index].nextNode;
+
+	expect(secondNode.key).toBe('q');
+	expect(secondNode.value).toBe('updated-second');
 });
