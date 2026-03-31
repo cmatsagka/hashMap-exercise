@@ -84,3 +84,12 @@ test('has: finds a key even if it is deep in a collision chain', () => {
 
 	expect(myMap.has('q')).toBe(true);
 });
+
+test('remove: removes the entry with the key and returns true if it exists. Else returns false if not found', () => {
+	const myMap = hashMap();
+	myMap.set('a', 'first');
+	myMap.set('q', 'second');
+
+	expect(myMap.remove('a')).toBe(true);
+	expect(myMap.remove('c')).toBe(false);
+});

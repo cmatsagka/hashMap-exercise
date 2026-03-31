@@ -56,11 +56,27 @@ export function hashMap() {
 		return false;
 	};
 
+	const remove = (key) => {
+		const index = hash(key);
+		let current = buckets[index];
+
+		while (current !== null) {
+			if (current.key === key) {
+				current = null;
+				return true;
+			}
+			current = current.nextNode;
+		}
+
+		return false;
+	};
+
 	return {
 		hash,
 		set,
 		get,
 		has,
+		remove,
 		debug: () => buckets,
 	};
 }
