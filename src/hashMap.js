@@ -62,7 +62,7 @@ export function hashMap() {
 
 		while (current !== null) {
 			if (current.key === key) {
-				current = null;
+				current.value = null;
 				return true;
 			}
 			current = current.nextNode;

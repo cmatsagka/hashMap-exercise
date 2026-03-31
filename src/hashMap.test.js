@@ -85,11 +85,31 @@ test('has: finds a key even if it is deep in a collision chain', () => {
 	expect(myMap.has('q')).toBe(true);
 });
 
-test('remove: removes the entry with the key and returns true if it exists. Else returns false if not found', () => {
+test('removes a single entry and returns true', () => {
+	const myMap = hashMap();
+	myMap.set('apple', 'red');
+
+	expect(myMap.remove('apple')).toBe(true);
+	expect(myMap.get('apple')).toBeNull();
+});
+
+test('removes the FIRST node in a collision chain and preserves the rest', () => {
 	const myMap = hashMap();
 	myMap.set('a', 'first');
 	myMap.set('q', 'second');
 
 	expect(myMap.remove('a')).toBe(true);
-	expect(myMap.remove('c')).toBe(false);
+	expect(myMap.get('q')).toBe('second');
+});
+
+test('removes a MIDDLE or LAST node in a collision chain', () => {
+	const myMap = hashMap();
+	myMap.set('a', 'first');
+	myMap.set('q', 'second');
+	myMap.set('z', 'third');
+
+	expect(myMap.remove('q')).toBe(true);
+	expect(myMap.get('a')).toBe('first');
+	expect(myMap.get('z')).toBe('third');
+	expect(myMap.get('q')).toBeNull();
 });
