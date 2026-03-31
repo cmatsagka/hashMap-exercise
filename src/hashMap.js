@@ -59,12 +59,18 @@ export function hashMap() {
 	const remove = (key) => {
 		const index = hash(key);
 		let current = buckets[index];
+		let previous = null;
 
 		while (current !== null) {
 			if (current.key === key) {
-				current.value = null;
+				if (previous === null) {
+					buckets[index] = current.nextNode;
+				} else {
+					previous.nextNode = current.nextNode;
+				}
 				return true;
 			}
+			previous = current;
 			current = current.nextNode;
 		}
 		return false;
