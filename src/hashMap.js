@@ -12,5 +12,14 @@ export function hashMap() {
 		return hashCode;
 	};
 
-	return { hash };
+	const set = (key, value) => {
+		const index = hash(key);
+		buckets[index] = { key, value, nextNode: null };
+	};
+
+	return {
+		hash,
+		set,
+		debug: () => buckets,
+	};
 }

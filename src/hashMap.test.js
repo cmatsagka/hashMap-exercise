@@ -9,3 +9,11 @@ test('hash: returns a consistent index within bounds', () => {
 
 	expect(myMap.hash('apple')).toBe(index);
 });
+
+test('set: stores a value that can be retrieved', () => {
+	const myMap = hashMap();
+	myMap.set('apple', 'red');
+
+	const index = myMap.hash('apple');
+	expect(myMap.debug()[index].value).toBe('red');
+});
