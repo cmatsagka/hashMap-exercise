@@ -205,7 +205,6 @@ test('handles duplicate values for different keys', () => {
 
 test('collects values from collision chains', () => {
 	const myMap = hashMap();
-	// 'a' and 'q' collide at index 1
 	myMap.set('a', 'first-value');
 	myMap.set('q', 'second-value');
 
@@ -213,4 +212,33 @@ test('collects values from collision chains', () => {
 
 	expect(result).toContain('first-value');
 	expect(result).toContain('second-value');
+});
+
+test('returns an empty array when map is empty', () => {
+	const myMap = hashMap();
+	expect(myMap.entries()).toEqual([]);
+});
+
+test('returns all [key, value] pairs from the map', () => {
+	const myMap = hashMap();
+	myMap.set('apple', 'red');
+	myMap.set('banana', 'yellow');
+
+	const result = myMap.entries();
+
+	expect(result).toHaveLength(2);
+	expect(result).toContainEqual(['apple', 'red']);
+	expect(result).toContainEqual(['banana', 'yellow']);
+});
+
+test('collects entries even from collision chains', () => {
+	const myMap = hashMap();
+	myMap.set('a', 'first');
+	myMap.set('q', 'second');
+
+	const result = myMap.entries();
+
+	expect(result).toHaveLength(2);
+	expect(result).toContainEqual(['a', 'first']);
+	expect(result).toContainEqual(['q', 'second']);
 });

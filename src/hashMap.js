@@ -121,6 +121,20 @@ export function hashMap() {
 		return valuesArray;
 	};
 
+	const entries = () => {
+		let entriesArray = [];
+
+		for (let bucket of buckets) {
+			let current = bucket;
+			while (current) {
+				let entry = [current.key, current.value];
+				entriesArray.push(entry);
+				current = current.nextNode;
+			}
+		}
+		return entriesArray;
+	};
+
 	return {
 		hash,
 		set,
@@ -131,6 +145,7 @@ export function hashMap() {
 		clear,
 		keys,
 		values,
+		entries,
 		debug: () => buckets,
 	};
 }
