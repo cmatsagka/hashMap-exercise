@@ -113,3 +113,20 @@ test('removes a MIDDLE or LAST node in a collision chain', () => {
 	expect(myMap.get('z')).toBe('third');
 	expect(myMap.get('q')).toBeNull();
 });
+
+test('length: handles updates and removals correctly', () => {
+	const myMap = hashMap();
+
+	myMap.set('apple', 'red');
+	myMap.set('banana', 'yellow');
+	expect(myMap.length()).toBe(2);
+
+	myMap.set('apple', 'green');
+	expect(myMap.length()).toBe(2);
+
+	myMap.remove('apple');
+	expect(myMap.length()).toBe(1);
+
+	myMap.remove('banana');
+	expect(myMap.length()).toBe(0);
+});

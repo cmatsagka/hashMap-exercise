@@ -67,8 +67,21 @@ export function hashMap() {
 			}
 			current = current.nextNode;
 		}
-
 		return false;
+	};
+
+	const length = () => {
+		let count = 0;
+		for (let i = 0; i < buckets.length; i++) {
+			if (buckets[i] !== null) {
+				let current = buckets[i];
+				while (current !== null) {
+					count++;
+					current = current.nextNode;
+				}
+			}
+		}
+		return count;
 	};
 
 	return {
@@ -77,6 +90,7 @@ export function hashMap() {
 		get,
 		has,
 		remove,
+		length,
 		debug: () => buckets,
 	};
 }
