@@ -90,6 +90,11 @@ export function hashMap() {
 		return count;
 	};
 
+	const clear = () => {
+		buckets = new Array(capacity).fill(null);
+		return buckets;
+	};
+
 	return {
 		hash,
 		set,
@@ -97,6 +102,7 @@ export function hashMap() {
 		has,
 		remove,
 		length,
+		clear,
 		debug: () => buckets,
 	};
 }

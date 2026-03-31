@@ -130,3 +130,13 @@ test('length: handles updates and removals correctly', () => {
 	myMap.remove('banana');
 	expect(myMap.length()).toBe(0);
 });
+
+test('clear: removes all entries in the hashMap', () => {
+	const myMap = hashMap();
+	myMap.set('a', 'first');
+	myMap.set('q', 'second');
+	myMap.set('z', 'third');
+
+	myMap.clear();
+	expect(myMap.length()).toBe(0);
+});
