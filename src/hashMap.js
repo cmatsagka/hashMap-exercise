@@ -14,7 +14,21 @@ export function hashMap() {
 
 	const set = (key, value) => {
 		const index = hash(key);
-		buckets[index] = { key, value, nextNode: null };
+
+		if (buckets[index] === null) {
+			buckets[index] = { key, value, nextNode: null };
+			return;
+		}
+
+		let previous = buckets[index];
+		let tmp = previous.nextNode;
+
+		while (tmp !== null) {
+			previous = tmp;
+			tmp = tmp.nextNode;
+		}
+		previous.nextNode = { key, value, nextNode: null };
+		return;
 	};
 
 	return {
