@@ -44,10 +44,22 @@ export function hashMap() {
 		return null;
 	};
 
+	const has = (key) => {
+		let index = hash(key);
+		let current = buckets[index];
+
+		while (current !== null) {
+			if (current.key !== null) return true;
+			current = current.nextNode;
+		}
+		return false;
+	};
+
 	return {
 		hash,
 		set,
 		get,
+		has,
 		debug: () => buckets,
 	};
 }
