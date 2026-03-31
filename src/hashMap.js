@@ -35,17 +35,18 @@ export function hashMap() {
 	};
 
 	const get = (key) => {
-		let index = hash(key);
+		const index = hash(key);
+		let current = buckets[index];
 
-		if (buckets[index]) {
-			return buckets[index].value;
+		while (current !== null) {
+			if (current.key === key) return current.value;
+			current = current.nextNode;
 		}
-
 		return null;
 	};
 
 	const has = (key) => {
-		let index = hash(key);
+		const index = hash(key);
 		let current = buckets[index];
 
 		while (current !== null) {
