@@ -95,6 +95,19 @@ export function hashMap() {
 		return buckets;
 	};
 
+	const keys = () => {
+		let keysArray = [];
+
+		for (let bucket of buckets) {
+			let current = bucket;
+			while (current) {
+				keysArray.push(current.key);
+				current = current.nextNode;
+			}
+		}
+		return keysArray;
+	};
+
 	return {
 		hash,
 		set,
@@ -103,6 +116,7 @@ export function hashMap() {
 		remove,
 		length,
 		clear,
+		keys,
 		debug: () => buckets,
 	};
 }

@@ -140,3 +140,34 @@ test('clear: removes all entries in the hashMap', () => {
 	myMap.clear();
 	expect(myMap.length()).toBe(0);
 });
+
+test('returns an empty array when map is empty', () => {
+	const myMap = hashMap();
+	expect(myMap.keys()).toEqual([]);
+});
+
+test('returns all keys from various buckets', () => {
+	const myMap = hashMap();
+	myMap.set('apple', 'red');
+	myMap.set('banana', 'yellow');
+	myMap.set('carrot', 'orange');
+
+	const result = myMap.keys();
+
+	expect(result).toHaveLength(3);
+	expect(result).toContain('apple');
+	expect(result).toContain('banana');
+	expect(result).toContain('carrot');
+});
+
+test('collects keys even from collision chains', () => {
+	const myMap = hashMap();
+	myMap.set('a', 'first');
+	myMap.set('q', 'second');
+
+	const result = myMap.keys();
+
+	expect(result).toContain('a');
+	expect(result).toContain('q');
+	expect(result).toHaveLength(2);
+});
