@@ -171,3 +171,46 @@ test('collects keys even from collision chains', () => {
 	expect(result).toContain('q');
 	expect(result).toHaveLength(2);
 });
+
+test('returns an empty array when map is empty', () => {
+	const myMap = hashMap();
+	expect(myMap.values()).toEqual([]);
+});
+
+test('returns all values from the map', () => {
+	const myMap = hashMap();
+	myMap.set('apple', 'red');
+	myMap.set('banana', 'yellow');
+	myMap.set('carrot', 'orange');
+
+	const result = myMap.values();
+
+	expect(result).toHaveLength(3);
+	expect(result).toContain('red');
+	expect(result).toContain('yellow');
+	expect(result).toContain('orange');
+});
+
+test('handles duplicate values for different keys', () => {
+	const myMap = hashMap();
+	myMap.set('apple', 'red');
+	myMap.set('strawberry', 'red');
+
+	const result = myMap.values();
+
+	expect(result).toHaveLength(2);
+	const redCount = result.filter((v) => v === 'red').length;
+	expect(redCount).toBe(2);
+});
+
+test('collects values from collision chains', () => {
+	const myMap = hashMap();
+	// 'a' and 'q' collide at index 1
+	myMap.set('a', 'first-value');
+	myMap.set('q', 'second-value');
+
+	const result = myMap.values();
+
+	expect(result).toContain('first-value');
+	expect(result).toContain('second-value');
+});

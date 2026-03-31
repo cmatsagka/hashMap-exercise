@@ -108,6 +108,19 @@ export function hashMap() {
 		return keysArray;
 	};
 
+	const values = () => {
+		let valuesArray = [];
+
+		for (let bucket of buckets) {
+			let current = bucket;
+			while (current) {
+				valuesArray.push(current.value);
+				current = current.nextNode;
+			}
+		}
+		return valuesArray;
+	};
+
 	return {
 		hash,
 		set,
@@ -117,6 +130,7 @@ export function hashMap() {
 		length,
 		clear,
 		keys,
+		values,
 		debug: () => buckets,
 	};
 }
