@@ -64,10 +64,10 @@ test('deep update: updates a key that is deep in a collision chain', () => {
 test('get: returns the value that is assigned to the key', () => {
 	const myMap = hashMap();
 	myMap.set('a', 'first');
-	myMap.set('q', 'second');
+	myMap.set('b', 'second');
 
 	expect(myMap.get('a')).toBe('first');
-	// expect(myMap.get('b')).toBe('second');
+	expect(myMap.get('b')).toBe('second');
 });
 
 test('get: returns null if the the key is not found', () => {
