@@ -50,7 +50,7 @@ export function hashMap() {
 		let current = buckets[index];
 
 		while (current !== null) {
-			if (current.key !== null) return true;
+			if (current.key === key) return true;
 			current = current.nextNode;
 		}
 		return false;
