@@ -242,3 +242,21 @@ test('collects entries even from collision chains', () => {
 	expect(result).toContainEqual(['a', 'first']);
 	expect(result).toContainEqual(['q', 'second']);
 });
+
+test('growth: doubles capacity when load factor exceeds 0.75', () => {
+	const myMap = hashMap();
+
+	for (let i = 0; i < 12; i++) {
+		myMap.set(`key${i}`, `value${i}`);
+	}
+
+	expect(myMap.debug().length).toBe(16);
+
+	myMap.set('trigger', 'growth');
+
+	expect(myMap.debug().length).toBe(32);
+
+	expect(myMap.get('key0')).toBe('value0');
+	expect(myMap.get('trigger')).toBe('growth');
+	expect(myMap.length()).toBe(13);
+});

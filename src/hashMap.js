@@ -1,5 +1,6 @@
 export function hashMap() {
-	const capacity = 16;
+	let capacity = 16;
+	const loadFactor = 0.75;
 	let buckets = new Array(capacity).fill(null);
 
 	const hash = (key) => {
@@ -12,7 +13,21 @@ export function hashMap() {
 		return hashCode;
 	};
 
+	const grow = () => {
+		const oldEntries = entries();
+		capacity = capacity * 2;
+		buckets = new Array(capacity).fill(null);
+
+		oldEntries.forEach(([key, value]) => {
+			set(key, value);
+		});
+	};
+
 	const set = (key, value) => {
+		if (!has(key) && (length() + 1) / capacity > loadFactor) {
+			grow();
+		}
+
 		const index = hash(key);
 
 		if (buckets[index] === null) {
